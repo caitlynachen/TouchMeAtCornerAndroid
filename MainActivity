@@ -1,0 +1,81 @@
+# TouchMeAtCornerAndroid
+package jrJava.touchmeatcorner;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.View.OnTouchListener;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.Button;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+public class MainActivity extends Activity implements OnTouchListener{
+
+	private TextView t;
+	
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		
+		RelativeLayout layout = new RelativeLayout(this);
+		
+		RelativeLayout.LayoutParams buttonParam = 
+				new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
+		buttonParam.topMargin = 100;
+		buttonParam.leftMargin = 100;
+		buttonParam.width = 200;
+		buttonParam.height = 200;
+		
+		
+		
+		Button b = new Button(this);
+		b.setText("Silly Button");
+		b.setLayoutParams(buttonParam);
+		b.setOnTouchListener(this);
+		layout.addView(b);
+
+		
+		RelativeLayout.LayoutParams textParam = 
+				new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
+		buttonParam.topMargin = 320;
+		buttonParam.leftMargin = 50;
+		
+		t = new TextView(this);
+		t.setTextSize(20);
+		t.setText("Try to touch as much top left corner");
+		t.setLayoutParams(textParam);
+		
+		layout.addView(t);
+		
+		
+		setContentView(layout);
+	}
+
+	
+	public boolean onTouch(View v, MotionEvent e) {
+		
+		int x = (int) e.getX();
+		int y = (int) e.getY();
+	
+		double dist = Math.sqrt(x*x + y*y);
+		
+		if(dist<=5){
+			t.setText("Great Job!");
+		}
+		else if(dist<=20){
+			t.setText("Far from it!");
+		}
+		else{
+			t.setText("What is wrong with your finger?");
+		}
+		
+		
+		return false;
+	}
+
+	
+	
+}
